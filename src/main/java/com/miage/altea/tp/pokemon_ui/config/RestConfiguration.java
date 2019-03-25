@@ -16,4 +16,8 @@ public class RestConfiguration {
     RestTemplate restTemplate(){
         return new RestTemplate();
     }
+
+    @Bean
+    RestTemplate trainerApiRestTemplate() {return new RestTemplate();
+    }
 }

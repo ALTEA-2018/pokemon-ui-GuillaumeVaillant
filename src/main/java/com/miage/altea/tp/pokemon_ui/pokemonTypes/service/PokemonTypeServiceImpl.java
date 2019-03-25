@@ -24,11 +24,12 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
 
         Locale locale = LocaleContextHolder.getLocale();
         HttpHeaders headers = new HttpHeaders();
+
         headers.setAcceptLanguage(Locale.LanguageRange.parse(locale.toLanguageTag()));
 
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        HttpEntity<String> httpEntity = new HttpEntity<>("parameters", headers);
 
-        PokemonType[] listPokemons = restTemplate.getForObject(pokemonTypeServiceUrl + "/pokemon-types/", PokemonType[].class, entity);
+        PokemonType[] listPokemons = restTemplate.getForObject(pokemonTypeServiceUrl + "/pokemon-types/", PokemonType[].class, httpEntity);
 
         return Lists.newArrayList(listPokemons);
     }
@@ -38,7 +39,7 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
         this.restTemplate = restTemplate;
     }
 
-    @Value("http://localhost:8080")
+    @Value("${pokemonType.service.url}")
     public void setPokemonTypeServiceUrl(String pokemonServiceUrl) {
         this.pokemonTypeServiceUrl = pokemonServiceUrl;
     }

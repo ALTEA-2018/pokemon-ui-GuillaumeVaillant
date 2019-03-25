@@ -1,7 +1,9 @@
 package com.miage.altea.tp.pokemon_ui.pokemonTypes.service;
 
 import com.miage.altea.tp.pokemon_ui.pokemonTypes.bo.PokemonType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import static org.mockito.Mockito.when;
 public class PokemonTypeServiceImplTest {
     @Test
     void listPokemonsTypes_shouldCallTheRemoteService() {
-        var url = "https://pokemontype.herokuapp.com";
+        var url = "http://localhost:8080";
 
         var restTemplate = mock(RestTemplate.class);
         var pokemonServiceImpl = new PokemonTypeServiceImpl();
@@ -27,7 +29,7 @@ public class PokemonTypeServiceImplTest {
         pikachu.setName("pikachu");
         pikachu.setId(25);
 
-        var expectedUrl = "https://pokemontype.herokuapp.com/pokemon-types/";
+        var expectedUrl = "http://localhost:8080/pokemon-types/";
         when(restTemplate.getForObject(expectedUrl, PokemonType[].class)).thenReturn(new PokemonType[]{pikachu});
 
         var pokemons = pokemonServiceImpl.listPokemonsTypes();
@@ -56,4 +58,5 @@ public class PokemonTypeServiceImplTest {
         assertNotNull(valueAnnotation);
         assertEquals("${pokemonType.service.url}", valueAnnotation.value());
     }
+
 }
